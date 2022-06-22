@@ -11,7 +11,7 @@ html, body{
   height: 100vh;
   width: 100%;
   place-items: center;
-  background: linear-gradient(to right, #99004d 0%, #ff0080 100%);
+  background: linear-gradient(to right, #360099 0%, #00ff2a 100%);
 }
 ::selection{
   background: #ff80bf;
@@ -100,7 +100,7 @@ html, body{
   text-align: center;
 }
 .container .facebook a,
-.container .twitter a{
+.container .google a{
   display: block;
   height: 45px;
   width: 100%;
@@ -114,15 +114,15 @@ html, body{
 }
 
 .container .facebook i,
-.container .twitter i{
+.container .google i{
   padding-right: 12px;
   font-size: 20px;
 }
-.container .twitter a{
+.container .google a{
   background: linear-gradient(to right,  #00acee 0%, #1abeff 100%);
   margin: 20px 0 15px 0;
 }
-.container .twitter a:hover{
+.container .google a:hover{
   background: linear-gradient(to left,  #00acee 0%, #1abeff 100%);
   margin: 20px 0 15px 0;
 }
