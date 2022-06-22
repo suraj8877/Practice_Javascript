@@ -100,7 +100,8 @@ html, body{
   text-align: center;
 }
 .container .facebook a,
-.container .twitter a{
+.container .twitter a
+{
   display: block;
   height: 45px;
   width: 100%;
@@ -114,7 +115,8 @@ html, body{
 }
 
 .container .facebook i,
-.container .twitter i{
+.container .twitter i
+{
   padding-right: 12px;
   font-size: 20px;
 }
