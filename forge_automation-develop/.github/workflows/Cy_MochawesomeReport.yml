@@ -1,0 +1,33 @@
+name: Cypress E2E Mochawesome Report
+
+on:
+  workflow_dispatch: # This enables the "Run workflow" option
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'  # Change to your required Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Cypress tests
+        run: npm run cy:run  # Ensure this matches your script in package.json
+
+      - name: Upload Mochawesome Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: mochawesome-report
+          path: |
+            cypress/reports
+            cypress/screenshots
+            cypress/videos

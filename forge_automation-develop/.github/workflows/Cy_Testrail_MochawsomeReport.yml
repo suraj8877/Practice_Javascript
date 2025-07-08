@@ -1,0 +1,80 @@
+name: Cypress E2E Test with TestRail
+
+on:
+  workflow_dispatch:
+    inputs:
+      testrail_run_id:
+        description: 'TestRail Run ID'
+        required: true
+      browser:
+        description: 'Browser to run tests (chrome, edge, firefox)'
+        required: true
+        default: 'chrome'
+
+jobs:
+  Cypress-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Git Code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies  # ✅ Fix: Install required dependencies before Cypress runs
+        run: npm install
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: ${{ github.event.inputs.browser }}
+          command: npx cypress run --spec --reporter mochawesome --browser ${{ github.event.inputs.browser }}
+          record: false
+          publish-summary: true
+        env:
+          TESTRAIL_RUN_ID: ${{ github.event.inputs.testrail_run_id }}
+
+      - name: List reports directory
+        if: always()
+        run: |
+          ls -l cypress/reports/mochawesome-report/json || echo "No report directory found"
+
+      - name: Check if reports exist
+        if: always()
+        run: |
+          if [ ! -d "cypress/reports/mochawesome-report/json" ] || [ -z "$(ls -A cypress/reports/mochawesome-report/json)" ]; then
+            echo "No report files found. Skipping report generation."
+            exit 0
+          fi
+
+      - name: Merge Mochawesome reports
+        if: always()
+        run: |
+          npx mochawesome-merge cypress/reports/mochawesome-report/json/*.json > mochawesome-merged.json
+
+      - name: Generate HTML report
+        if: always()
+        run: |
+          npx marge mochawesome-merged.json --reportDir TestReport
+
+      - name: Upload Mochawesome HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochawesome-report
+          path: TestReport/
+          if-no-files-found: warn
+          compression-level: 0
+
+      - name: Upload Cypress Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos/
+          if-no-files-found: warn
+
+      - name: Upload Cypress Screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/
+          if-no-files-found: warn

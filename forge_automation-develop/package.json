@@ -1,0 +1,49 @@
+{
+  "name": "forge_automation",
+  "version": "1.0.0",
+  "description": "Forge Automation Framework",
+  "main": "index.js",
+  "author": "Forge QA Team",
+  "license": "ISC",
+  "homepage": "https://github.com/Simple-Online-Healthcare/forge_automation#readme",
+  "scripts": {
+    "clean-reports": "rimraf cypress/reports && rimraf TestReport && rimraf cypress-combined-report.json",
+    "cy:run": "npm run clean-reports && cypress run",
+    "cy:open": "cypress open",
+    "test:login": "npx cypress run --spec cypress/e2e/regressionTesting/Login/login.cy.js",
+    "test:spec": "npx cypress run --spec \"cypress/e2e/regressionTesting/Assessment Forms/Assessment Section/assessmentSection.cy.js\"",
+    "cypress:open:qa": "cypress open --env configFile=qa",
+    "cypress:open:dev": "cypress open --env configFile=dev",
+    "cypress:open:prod": "cypress open --env configFile=prod",
+    "cypress:run:qa": "npm run clean-reports && cypress run --env configFile=qa",
+    "cypress:run:dev": "npm run clean-reports && cypress run --env configFile=dev",
+    "merge:reports": "mochawesome-merge cypress/reports/mochawesome-report/jsons/*.json > cypress-combined-report.json",
+    "create:html:report": "npm run merge:reports && marge --reportDir TestReport cypress-combined-report.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Simple-Online-Healthcare/forge_automation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Simple-Online-Healthcare/forge_automation/issues"
+  },
+  "dependencies": {
+    "cypress": "13.0.0",
+    "mailslurp-client": "^15.21.0",
+    "playwright-webkit": "^1.48.1",
+    "save-dev": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "@testing-library/cypress": "^10.0.2",
+    "cypress-file-upload": "^5.0.8",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "cypress-multi-reporters": "^2.0.4",
+    "cypress-testrail": "^2.10.0",
+    "dotenv": "^16.4.5",
+    "mocha": "^11.0.1",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "rimraf": "^6.0.1"
+  }
+}

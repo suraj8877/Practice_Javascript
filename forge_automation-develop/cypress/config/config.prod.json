@@ -1,0 +1,7 @@
+{
+    "baseUrl": "https://admin-prod.simpleonlinehealthcare.co.uk",
+    "env": {
+        "LOGIN_USERNAME": "admin",
+        "LOGIN_PASSWORD": "admin"
+    }
+}

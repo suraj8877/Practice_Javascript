@@ -1,0 +1,7 @@
+{
+    "baseUrl": "https://admin-dev.simpleonlinehealthcare.co.uk",
+    "env": {
+        "LOGIN_USERNAME": "rootadmin-aus@forge.com",
+        "LOGIN_PASSWORD": "Abc@1234"
+    }
+}

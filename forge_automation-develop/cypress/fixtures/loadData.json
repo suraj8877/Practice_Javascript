@@ -1,0 +1,9 @@
+{
+  "invalidEmail": "Admin",
+  "validPassword": "Abc@1234",
+  "validEmail": "rootadmin-aus@forge.com",
+  "invalidPassword": "Abc@1237",
+  "validEmailWithInvalidDomain": "rootadmin-aus@forge.coo",
+  "invalidPasswordLessThanEightCharecter": "Abc@12",
+  "invalidEmail1": "rootadmin-aus@@forge.com"
+}
